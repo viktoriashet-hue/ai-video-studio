@@ -39,6 +39,7 @@ const HEIGHT = heightArg ? parseInt(heightArg, 10) : 1920;
     const tMs = (f / FPS) * 1000;
     await page.evaluate((t) => {
       document.getAnimations().forEach(a => { a.currentTime = t; });
+      if (window.__frameHook) window.__frameHook(t);
     }, tMs);
     const frameName = String(f).padStart(4, '0') + '.png';
     await page.screenshot({ path: path.join(outDir, frameName) });
