@@ -1,0 +1,39 @@
+{
+  "target_locations": [
+    "Kazakhstan", "Казахстан", "Almaty", "Алматы", "Astana", "Астана",
+    "Nur-Sultan", "Warsaw", "Warszawa", "Варшава", "Poland (remote)",
+    "Remote"
+  ],
+  "russian_speaking_friendly_signals": [
+    "русский", "russian speaking", "russian-speaking", "знание русского",
+    "СНГ", "релокация из СНГ", "CIS", "работа на русском"
+  ],
+  "language_requirement_max": "B1",
+  "language_requirement_accept": ["not specified", "A1", "A2", "B1", "русский", "russian"],
+  "language_requirement_reject_keywords": [
+    "fluent english", "native english", "advanced english", "C1", "C2",
+    "business english required", "excellent english", "полное владение английским",
+    "свободный английский", "продвинутый английский"
+  ],
+  "posting_freshness": {
+    "max_days_since_posted": 14,
+    "note": "Отклонять вакансии старше N дней (по метке LinkedIn 'X дней/недель назад'). Если дата не видна явно — пометить 'дата не определена' и решает пользователь, не отклонять автоматически."
+  },
+  "target_professions": [
+    "Marketing Manager", "Content Marketing Manager", "SMM Manager",
+    "Digital Marketing Specialist", "Growth Marketing Specialist",
+    "Copywriter", "Marketing Strategy", "Business Consultant"
+  ],
+  "target_locations_note": "ЗАПОЛНИТЬ при необходимости точнее: конкретные города/районы, только remote и т.п.",
+  "exclude_keywords": [
+    "ЗАПОЛНИТЬ: вакансии/слова, которые точно не подходят"
+  ],
+  "requires_eu_work_permit_flag": true,
+  "requires_eu_work_permit_note": "Для вакансий в Варшаве отмечать явные требования 'EU work permit required' / 'must have right to work in Poland' отдельным флагом — сверяется с профилем пользователя перед откликом.",
+  "daily_action_limits": {
+    "applications": 8,
+    "connection_requests": 10,
+    "messages": 10,
+    "note": "Мягкие лимиты в день, чтобы не выглядеть ботом для LinkedIn"
+  }
+}
