@@ -1,5 +1,12 @@
 # LinkedIn Job Agent (Claude Code)
 
+Каждый скилл ниже также зарегистрирован в `.claude/skills/` (симлинк на
+`linkedin-agent/skills/<name>/`, как и остальные скиллы этого репозитория) —
+можно вызывать напрямую по имени (`/job-search-filter`,
+`/resume-profile-match`, `/cover-letter-generator`,
+`/application-form-filler`, `/recruiter-outreach`, `/application-tracker`)
+в новой сессии Claude Code в этом репозитории.
+
 Агент помогает искать на LinkedIn вакансии, подходящие русскоязычному
 специалисту в Казахстане и Варшаве, оценивать их релевантность профилю,
 готовить сопроводительные письма, черновики ответов на доп. вопросы формы
