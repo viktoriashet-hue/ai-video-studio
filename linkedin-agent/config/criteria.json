@@ -1,4 +1,22 @@
 {
+  "location_priority": [
+    {
+      "tier": 1,
+      "label": "Алматы (приоритет)",
+      "match": ["Almaty", "Алматы", "Алма-Ата"]
+    },
+    {
+      "tier": 2,
+      "label": "Казахстан, другие города / удалённо по Казахстану",
+      "match": ["Kazakhstan", "Казахстан", "Astana", "Астана", "Nur-Sultan"]
+    },
+    {
+      "tier": 3,
+      "label": "Варшава / Польша",
+      "match": ["Warsaw", "Warszawa", "Варшава", "Poland (remote)"]
+    }
+  ],
+  "location_priority_note": "Алматы — приоритетный регион поиска. В job-search-filter сначала формируй и обрабатывай выдачу по Алматы (tier 1), и только после неё — по остальному Казахстану (tier 2) и Варшаве (tier 3). В итоговых таблицах вакансии tier 1 всегда идут первым блоком, независимо от релевантности внутри тира.",
   "target_locations": [
     "Kazakhstan", "Казахстан", "Almaty", "Алматы", "Astana", "Астана",
     "Nur-Sultan", "Warsaw", "Warszawa", "Варшава", "Poland (remote)",
