@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Kinetic Steps — reel 9:16</title>
+    <!-- GSAP лежит рядом: скопируй assets/gsap.min.js из скилла в папку проекта -->
+    <script src="gsap.min.js"></script>
+    <style>
+      :root {
+        --ink: #17181f;       /* тёмный фон / чёрный текст */
+        --cream: #f5efe7;     /* светлый фон */
+        --blue: #1a6aff;      /* главный акцент */
+        --sky: #56b6fd;       /* акцент на тёмном */
+        --muted: #8b8c96;     /* служебные подписи */
+        --card: #ffffff;
+        --sans: "Inter", "Helvetica Neue", sans-serif;
+        --serif: "Playfair Display", Georgia, serif;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--ink); font-family: var(--sans); }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+
+      /* ---------- сцены ---------- */
+      .scene { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; }
+      .fill { position: absolute; inset: 0; }
+      .fill.ink { background: var(--ink); }
+      .fill.cream { background: var(--cream); }
+      .fill.blue { background: var(--blue); }
+      .grid {
+        position: absolute; inset: 0; opacity: 0.07;
+        background-image:
+          linear-gradient(to right, #ffffff 1px, transparent 1px),
+          linear-gradient(to bottom, #ffffff 1px, transparent 1px);
+        background-size: 135px 135px;
+      }
+      .stage {
+        position: absolute; inset: 0; display: flex; flex-direction: column;
+        align-items: center; justify-content: center; text-align: center; padding: 0 90px;
+      }
+      .stage.top { justify-content: flex-start; padding-top: 330px; }
+
+      /* ---------- типографика ---------- */
+      .w { display: block; font-weight: 900; text-transform: uppercase; letter-spacing: -0.035em; line-height: 0.95; }
+      .xl { font-size: 190px; }
+      .l { font-size: 150px; }
+      .m { font-size: 92px; }
+      .s { font-size: 62px; }
+      .xs { font-size: 46px; }
+      .on-ink { color: #ffffff; }
+      .on-cream { color: var(--ink); }
+      .c-blue { color: var(--blue); }
+      .c-sky { color: var(--sky); }
+      .c-muted { color: var(--muted); }
+      .serif { font-family: var(--serif); font-style: italic; font-weight: 400; text-transform: none; letter-spacing: 0; }
+      .stack { position: relative; width: 900px; height: 420px; }
+      .stack > .w { position: absolute; left: 0; right: 0; top: 50%; margin-top: -0.5em; }
+      .hl { display: inline-block; }
+      .uline { display: block; height: 8px; border-radius: 8px; background: currentColor; transform-origin: left center; margin: 18px auto 0; }
+
+      /* ---------- постоянный интерфейс ---------- */
+      .chrome { position: absolute; inset: 0; pointer-events: none; }
+      .kicker { position: absolute; top: 96px; left: 72px; font-size: 22px; font-weight: 700; letter-spacing: 0.32em; color: var(--muted); text-transform: uppercase; }
+      .footer { position: absolute; bottom: 150px; left: 72px; font-size: 20px; font-weight: 700; letter-spacing: 0.32em; color: var(--muted); text-transform: uppercase; }
+      .pill {
+        position: absolute; top: 70px; right: 60px; height: 76px; padding: 0 30px 0 12px;
+        display: flex; align-items: center; gap: 16px; border-radius: 40px;
+        background: #1f2330; border: 2px solid #2f3a5c;
+      }
+      .pill .ava { width: 52px; height: 52px; border-radius: 50%; background: var(--blue); display: grid; place-items: center; color: #fff; font-weight: 900; font-size: 26px; }
+      .pill .meta { display: flex; flex-direction: column; text-align: left; }
+      .pill .lab { font-size: 15px; color: #8fa0c8; }
+      .pill .handle { font-size: 22px; font-weight: 700; color: #fff; }
+
+      .spark { position: absolute; width: 56px; height: 56px; }
+      .spark svg { width: 100%; height: 100%; display: block; }
+
+      /* ---------- UI-мокапы ---------- */
+      .window {
+        width: 760px; border-radius: 40px; background: #232838; border: 2px solid #343b52;
+        box-shadow: 0 40px 80px rgba(0,0,0,0.35); padding: 34px; margin-top: 80px;
+      }
+      .dots { display: flex; gap: 12px; margin-bottom: 26px; }
+      .dots i { width: 18px; height: 18px; border-radius: 50%; display: block; }
+      .drop { height: 300px; border: 3px dashed #4a5370; border-radius: 26px; display: grid; place-items: center; color: #7e88a8; font-size: 26px; font-weight: 700; letter-spacing: 0.18em; }
+      .cards { display: flex; gap: 40px; margin-top: 90px; align-items: center; }
+      .card { width: 330px; height: 380px; border-radius: 40px; background: var(--card); padding: 34px; text-align: left; display: flex; flex-direction: column; box-shadow: 0 30px 60px rgba(0,0,0,0.18); }
+      .card .ico { width: 92px; height: 92px; border-radius: 24px; background: #eef2ff; display: grid; place-items: center; font-size: 46px; font-weight: 900; color: var(--blue); }
+      .card .ttl { margin-top: auto; font-size: 44px; font-weight: 900; color: var(--ink); letter-spacing: -0.02em; }
+      .card .sub { font-size: 24px; color: #6b6f7d; margin-top: 6px; }
+      .card .tag { font-size: 20px; font-weight: 900; color: var(--blue); letter-spacing: 0.16em; margin-top: 20px; }
+      .plus { color: #ffffff; font-size: 64px; font-weight: 900; }
+      .chips { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; margin-top: 90px; }
+      .chip { width: 380px; height: 130px; border-radius: 30px; background: #ffffff; display: flex; align-items: center; gap: 22px; padding: 0 32px; font-size: 38px; font-weight: 900; color: var(--ink); }
+      .chip i { width: 62px; height: 62px; border-radius: 16px; background: #e8eeff; display: block; }
+      .wave { width: 820px; height: 120px; margin-top: 70px; }
+      .panel { width: 820px; border-radius: 40px; background: #232838; padding: 40px; margin-top: 90px; position: relative; }
+      .row { display: flex; gap: 18px; margin-bottom: 26px; }
+      .slide { flex: 1; height: 230px; border-radius: 20px; background: var(--blue); }
+      .slide.alt { background: #2f3a5c; }
+      .bars { display: flex; align-items: center; gap: 10px; height: 110px; }
+      .bars i { width: 12px; border-radius: 6px; background: var(--blue); display: block; }
+      .toast { position: absolute; left: 50%; top: 50%; width: 560px; margin-left: -280px; margin-top: -60px; height: 120px; border-radius: 26px; background: #ffffff; display: grid; place-items: center; font-size: 36px; font-weight: 900; color: var(--ink); box-shadow: 0 30px 60px rgba(0,0,0,0.3); }
+      .ring-wrap { position: relative; width: 600px; height: 600px; margin: 40px 0; }
+      .ring-wrap svg { position: absolute; inset: 0; width: 600px; height: 600px; }
+      .count { position: absolute; inset: 0; display: grid; place-items: center; font-size: 330px; font-weight: 900; color: var(--sky); letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
+
+      /* ---------- переходы ---------- */
+      .wipe { position: absolute; inset: 0; }
+      .col { position: absolute; bottom: 0; height: 1920px; width: 216px; transform-origin: center bottom; }
+      .iris { position: absolute; left: 50%; top: 50%; width: 2400px; height: 2400px; margin: -1200px 0 0 -1200px; border-radius: 50%; background: var(--cream); }
+      .corner { position: absolute; top: 0; right: 0; width: 1080px; height: 1920px; background: var(--blue); transform-origin: right top; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="23">
+
+      <!-- S1 · хук: слова-стопка на тёмном (0 – 1.8) -->
+      <section id="s1" class="scene clip" data-start="0" data-duration="1.8" data-track-index="1">
+        <div class="fill ink"></div><div class="grid"></div>
+        <div class="stage">
+          <div class="stack">
+            <span id="s1-a" class="w l on-ink">Claude</span>
+            <span id="s1-b" class="w xl c-sky">теперь</span>
+            <span id="s1-c" class="w xl c-sky serif"><span class="hl">сам<span id="s1-cu" class="uline"></span></span></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- S2 · светлая сцена: слово + мокап окна (1.8 – 4.2) -->
+      <section id="s2" class="scene clip" data-start="1.8" data-duration="2.4" data-track-index="1">
+        <div class="fill cream"></div>
+        <div class="stage top">
+          <span id="s2-a" class="w s on-cream">делает ваши</span>
+          <span id="s2-b" class="w xl c-blue">карусели</span>
+          <div id="s2-win" class="window">
+            <div class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div>
+            <div class="drop">ХУК → 9 СЛАЙДОВ</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- S3 · синий: шаг с цифрой и двумя карточками (4.2 – 7.6) -->
+      <section id="s3" class="scene clip" data-start="4.2" data-duration="3.4" data-track-index="1">
+        <div class="fill blue"></div>
+        <div class="stage top">
+          <span id="s3-a" class="w m on-ink">установи</span>
+          <div style="display:flex;align-items:center;gap:26px;margin-top:20px">
+            <span id="s3-n" class="w xl on-ink">2</span><span id="s3-b" class="w m on-ink">скилла</span>
+          </div>
+          <div class="cards">
+            <div id="s3-c1" class="card"><div class="ico">К</div><div class="ttl">Карусели</div><div class="sub">хук и слайды</div><div class="tag">INSTALLED</div></div>
+            <span id="s3-plus" class="plus">+</span>
+            <div id="s3-c2" class="card"><div class="ico">Д</div><div class="ttl">Дизайн</div><div class="sub">твой стиль</div><div class="tag">INSTALLED</div></div>
+          </div>
+        </div>
+        <div id="s3-sp" class="spark" style="left:860px;top:1270px"><svg viewBox="0 0 40 40"><path d="M20 0 C22 14 26 18 40 20 C26 22 22 26 20 40 C18 26 14 22 0 20 C14 18 18 14 20 0Z" fill="none" stroke="#fff" stroke-width="2"/></svg></div>
+      </section>
+
+      <!-- S4 · тёмный: «опиши» + чипы + волна (7.6 – 11.2) -->
+      <section id="s4" class="scene clip" data-start="7.6" data-duration="3.6" data-track-index="1">
+        <div class="fill ink"></div><div class="grid"></div>
+        <div class="stage top">
+          <span id="s4-a" class="w l c-sky">опиши</span>
+          <span id="s4-b" class="w s on-ink" style="margin-top:20px">какой пост</span>
+          <span id="s4-c" class="w s on-ink">тебе нужен</span>
+          <div class="chips">
+            <div id="s4-k1" class="chip"><i></i>ХУК</div>
+            <div id="s4-k2" class="chip"><i></i>СЛАЙДЫ</div>
+            <div id="s4-k3" class="chip"><i></i>ПОДПИСЬ</div>
+            <div id="s4-k4" class="chip"><i></i>ДИЗАЙН</div>
+          </div>
+          <svg class="wave" viewBox="0 0 820 120"><path id="s4-wave" d="M10 60 C150 0 260 120 410 60 S670 0 810 60" fill="none" stroke="#1a6aff" stroke-width="8" stroke-linecap="round"/></svg>
+        </div>
+      </section>
+
+      <!-- S5 · светлый: панель результата + тост (11.2 – 14.6) -->
+      <section id="s5" class="scene clip" data-start="11.2" data-duration="3.4" data-track-index="1">
+        <div class="fill cream"></div>
+        <div class="stage top">
+          <span id="s5-a" class="w xl c-blue">готово</span>
+          <div id="s5-panel" class="panel">
+            <div class="row"><div id="s5-t1" class="slide"></div><div id="s5-t2" class="slide alt"></div><div id="s5-t3" class="slide"></div></div>
+            <div class="bars" id="s5-bars"></div>
+            <div id="s5-toast" class="toast">КАРУСЕЛЬ ГОТОВА</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- S6 · тёмный: счётчик в кольце (14.6 – 18.0) -->
+      <section id="s6" class="scene clip" data-start="14.6" data-duration="3.4" data-track-index="1">
+        <div class="fill ink"></div><div class="grid"></div>
+        <div class="stage top" style="padding-top:260px">
+          <span id="s6-a" class="w s on-ink">через</span>
+          <div class="ring-wrap">
+            <svg viewBox="0 0 600 600"><circle id="s6-ring" cx="300" cy="300" r="280" fill="none" stroke="#56b6fd" stroke-width="6" stroke-dasharray="1759.3" stroke-dashoffset="1759.3" transform="rotate(-90 300 300)"/></svg>
+            <div id="s6-n" class="count">0</div>
+          </div>
+          <span id="s6-b" class="w l on-ink">минут</span>
+          <span id="s6-c" class="w s on-ink" style="margin-top:50px">пост</span>
+          <span id="s6-d" class="w m c-sky serif"><span class="hl">готов<span id="s6-du" class="uline"></span></span></span>
+        </div>
+      </section>
+
+      <!-- S7 · вопрос (18.0 – 19.4) -->
+      <section id="s7" class="scene clip" data-start="18" data-duration="1.4" data-track-index="1">
+        <div class="fill ink"></div><div class="grid"></div>
+        <div class="stage">
+          <span id="s7-a" class="w s on-ink">хочешь</span>
+          <span id="s7-b" class="w l on-ink">так же?</span>
+        </div>
+      </section>
+
+      <!-- S8 · CTA (19.4 – 23.0) -->
+      <section id="s8" class="scene clip" data-start="19.4" data-duration="3.6" data-track-index="1">
+        <div class="fill cream"></div>
+        <div class="stage">
+          <span id="s8-a" class="w s on-cream">пиши слово</span>
+          <span id="s8-b" class="w xl c-blue" style="margin-top:30px">канал</span>
+          <span id="s8-c" class="w xs on-cream" style="margin-top:30px">в комментариях</span>
+          <span id="s8-d" class="w xs c-muted" style="margin-top:110px"><span class="hl">получи инструкцию<span id="s8-du" class="uline" style="background:#1a6aff"></span></span></span>
+        </div>
+        <div id="s8-sp" class="spark" style="left:150px;top:880px"><svg viewBox="0 0 40 40"><path d="M20 0 C22 14 26 18 40 20 C26 22 22 26 20 40 C18 26 14 22 0 20 C14 18 18 14 20 0Z" fill="none" stroke="#1a6aff" stroke-width="2.4"/></svg></div>
+      </section>
+
+      <!-- ПЕРЕХОДЫ (трек 5) — перекрывают стык и уходят в момент смены сцены -->
+      <div id="t1" class="wipe clip" data-start="1.45" data-duration="0.35" data-track-index="5">
+        <div class="col" style="left:0;background:#f5efe7"></div><div class="col" style="left:216px;background:#f5efe7"></div><div class="col" style="left:432px;background:#f5efe7"></div><div class="col" style="left:648px;background:#f5efe7"></div><div class="col" style="left:864px;background:#f5efe7"></div>
+      </div>
+      <div id="t2" class="wipe clip" data-start="3.9" data-duration="0.3" data-track-index="5"><div class="corner"></div></div>
+      <div id="t3" class="wipe clip" data-start="7.25" data-duration="0.35" data-track-index="5">
+        <div class="col" style="left:0;background:#17181f"></div><div class="col" style="left:216px;background:#17181f"></div><div class="col" style="left:432px;background:#17181f"></div><div class="col" style="left:648px;background:#17181f"></div><div class="col" style="left:864px;background:#17181f"></div>
+      </div>
+      <div id="t4" class="wipe clip" data-start="10.85" data-duration="0.35" data-track-index="5">
+        <div class="col" style="left:0;background:#f5efe7"></div><div class="col" style="left:216px;background:#f5efe7"></div><div class="col" style="left:432px;background:#f5efe7"></div><div class="col" style="left:648px;background:#f5efe7"></div><div class="col" style="left:864px;background:#f5efe7"></div>
+      </div>
+      <div id="t5" class="wipe clip" data-start="14.25" data-duration="0.35" data-track-index="5">
+        <div class="col" style="left:0;background:#17181f"></div><div class="col" style="left:216px;background:#17181f"></div><div class="col" style="left:432px;background:#17181f"></div><div class="col" style="left:648px;background:#17181f"></div><div class="col" style="left:864px;background:#17181f"></div>
+      </div>
+      <div id="t6" class="wipe clip" data-start="19.0" data-duration="0.4" data-track-index="5"><div class="iris"></div></div>
+
+      <!-- ПОСТОЯННЫЙ ИНТЕРФЕЙС (трек 9) -->
+      <div id="chrome" class="chrome clip" data-start="0" data-duration="23" data-track-index="9">
+        <div id="kicker" class="kicker">CLAUDE × КАРУСЕЛИ</div>
+        <div id="pill" class="pill"><div class="ava">В</div><div class="meta"><span class="lab">автор</span><span class="handle">@corka_freuda</span></div></div>
+        <div id="footer" class="footer">CLAUDE CODE / SKILLS</div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const IN = { duration: 0.32, ease: "power3.out" };
+
+      // волна столбиков для S5 (детерминированно, без random)
+      const bars = document.getElementById("s5-bars");
+      for (let i = 0; i < 44; i++) {
+        const b = document.createElement("i");
+        b.style.height = (24 + Math.abs(Math.sin(i * 0.9) * 70) + (i % 3) * 6) + "px";
+        bars.appendChild(b);
+      }
+
+      // интерфейс
+      tl.fromTo("#pill", { y: -30, opacity: 0 }, { y: 0, opacity: 1, ...IN }, 0.05);
+      tl.fromTo(["#kicker", "#footer"], { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.1);
+
+      // S1 — стопка: новое слово снизу, старое уменьшается вверх
+      tl.fromTo("#s1-a", { y: 60, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1, ...IN }, 0.0);
+      tl.to("#s1-a", { y: -120, scale: 0.42, opacity: 0.85, duration: 0.3, ease: "power3.inOut" }, 0.42);
+      tl.fromTo("#s1-b", { y: 90, opacity: 0, scale: 0.85 }, { y: 0, opacity: 1, scale: 1, ...IN }, 0.46);
+      tl.to(["#s1-a", "#s1-b"], { y: "-=90", opacity: 0, duration: 0.22, ease: "power2.in" }, 0.92);
+      tl.fromTo("#s1-c", { y: 70, opacity: 0 }, { y: 0, opacity: 1, ...IN }, 1.0);
+      tl.fromTo("#s1-cu", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.out" }, 1.15);
+
+      // S2
+      tl.fromTo("#s2-a", { y: 50, opacity: 0 }, { y: 0, opacity: 1, ...IN }, 1.82);
+      tl.fromTo("#s2-b", { y: 80, opacity: 0, scale: 0.88 }, { y: 0, opacity: 1, scale: 1, ...IN }, 2.05);
+      tl.fromTo("#s2-win", { y: 240, opacity: 0, rotation: -3 }, { y: 0, opacity: 1, rotation: 0, duration: 0.55, ease: "back.out(1.4)" }, 2.5);
+      tl.to("#s2-win", { y: -18, duration: 1.2, ease: "sine.inOut" }, 3.05);
+
+      // S3
+      tl.fromTo("#s3-a", { y: 50, opacity: 0 }, { y: 0, opacity: 1, ...IN }, 4.22);
+      tl.fromTo("#s3-n", { scale: 0.3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" }, 4.45);
+      tl.fromTo("#s3-b", { x: -40, opacity: 0 }, { x: 0, opacity: 1, ...IN }, 4.6);
+      tl.fromTo("#s3-c1", { y: 200, opacity: 0, rotation: -6 }, { y: 0, opacity: 1, rotation: 0, duration: 0.5, ease: "back.out(1.5)" }, 5.0);
+      tl.fromTo("#s3-plus", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 5.3);
+      tl.fromTo("#s3-c2", { y: 200, opacity: 0, rotation: 6 }, { y: 0, opacity: 1, rotation: 0, duration: 0.5, ease: "back.out(1.5)" }, 5.45);
+      tl.fromTo("#s3-sp", { scale: 0, rotation: -90 }, { scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2)" }, 5.8);
+      tl.to("#s3-sp", { rotation: 90, duration: 1.3, ease: "none" }, 6.3);
+
+      // S4
+      tl.fromTo("#s4-a", { y: 60, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1, ...IN }, 7.62);
+      tl.fromTo("#s4-b", { y: 40, opacity: 0 }, { y: 0, opacity: 1, ...IN }, 7.95);
+      tl.fromTo("#s4-c", { y: 40, opacity: 0 }, { y: 0, opacity: 1, ...IN }, 8.2);
+      tl.fromTo(["#s4-k1", "#s4-k2", "#s4-k3", "#s4-k4"], { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.8)", stagger: 0.14 }, 8.6);
+      tl.fromTo("#s4-wave", { strokeDasharray: 900, strokeDashoffset: 900 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.out" }, 9.4);
+      tl.to("#s4-k4", { backgroundColor: "#1a6aff", color: "#ffffff", duration: 0.2 }, 10.2);
+
+      // S5
+      tl.fromTo("#s5-a", { y: 80, opacity: 0, scale: 0.88 }, { y: 0, opacity: 1, scale: 1, ...IN }, 11.22);
+      tl.fromTo("#s5-panel", { y: 260, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 11.5);
+      tl.fromTo(["#s5-t1", "#s5-t2", "#s5-t3"], { scaleY: 0 }, { scaleY: 1, duration: 0.3, ease: "power2.out", stagger: 0.12, transformOrigin: "center bottom" }, 11.9);
+      tl.fromTo("#s5-bars i", { scaleY: 0.1 }, { scaleY: 1, duration: 0.25, ease: "power2.out", stagger: 0.012, transformOrigin: "center center" }, 12.2);
+      tl.fromTo("#s5-toast", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" }, 12.9);
+
+      // S6 — кольцо + счётчик
+      tl.fromTo("#s6-a", { y: 40, opacity: 0 }, { y: 0, opacity: 1, ...IN }, 14.62);
+      tl.to("#s6-ring", { strokeDashoffset: 0, duration: 1.1, ease: "power2.inOut" }, 14.8);
+      const cnt = { v: 0 };
+      tl.fromTo("#s6-n", { scale: 0.7, opacity: 0.4 }, { scale: 1, opacity: 1, duration: 1.1, ease: "power2.inOut" }, 14.8);
+      tl.to(cnt, { v: 10, duration: 1.1, ease: "power2.inOut", onUpdate: () => { document.getElementById("s6-n").textContent = Math.round(cnt.v); } }, 14.8);
+      tl.fromTo("#s6-b", { y: 50, opacity: 0 }, { y: 0, opacity: 1, ...IN }, 15.6);
+      tl.fromTo("#s6-c", { y: 40, opacity: 0 }, { y: 0, opacity: 1, ...IN }, 16.2);
+      tl.fromTo("#s6-d", { y: 40, opacity: 0 }, { y: 0, opacity: 1, ...IN }, 16.4);
+      tl.fromTo("#s6-du", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power2.out" }, 16.65);
+
+      // S7
+      tl.fromTo("#s7-a", { y: 40, opacity: 0 }, { y: 0, opacity: 1, ...IN }, 18.02);
+      tl.fromTo("#s7-b", { y: 70, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1, ...IN }, 18.3);
+
+      // S8 — CTA: серая строка «включается» и подчёркивается
+      tl.fromTo("#s8-a", { y: 40, opacity: 0 }, { y: 0, opacity: 1, ...IN }, 19.42);
+      tl.fromTo("#s8-b", { y: 90, opacity: 0, scale: 0.85 }, { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 19.65);
+      tl.fromTo("#s8-c", { y: 40, opacity: 0 }, { y: 0, opacity: 1, ...IN }, 20.0);
+      tl.fromTo("#s8-sp", { scale: 0, rotation: -90 }, { scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2)" }, 20.1);
+      tl.fromTo("#s8-d", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 20.4);
+      tl.to("#s8-d", { color: "#17181f", duration: 0.25 }, 21.2);
+      tl.fromTo("#s8-du", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power2.out" }, 21.3);
+      tl.to("#s8-sp", { rotation: 90, duration: 1.4, ease: "none" }, 21.5);
+
+      // ПЕРЕХОДЫ: ступенчатая шторка снизу (колонки слева направо)
+      ["#t1", "#t3", "#t4", "#t5"].forEach((id) => {
+        const start = parseFloat(document.querySelector(id).dataset.start);
+        tl.fromTo(id + " .col", { scaleY: 0 }, { scaleY: 1, duration: 0.26, ease: "power3.inOut", stagger: 0.02 }, start);
+      });
+      tl.fromTo("#t2 .corner", { scale: 0.08 }, { scale: 1, duration: 0.28, ease: "power3.in" }, 3.9);
+      tl.fromTo("#t6 .iris", { scale: 0 }, { scale: 1, duration: 0.38, ease: "power3.in" }, 19.0);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
