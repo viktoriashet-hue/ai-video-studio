@@ -47,7 +47,7 @@ def find_sfx(name, base):
             p = os.path.join(lib, name + ext)
             if os.path.exists(p):
                 return os.path.abspath(p)
-    sys.exit(f"SFX не найден: {name}. Запусти gen_sfx.py или укажи путь. Библиотеки: {LIBS}")
+    sys.exit(f"SFX не найден: {name}. Проверь имя или укажи путь к файлу. Библиотеки: {LIBS}")
 
 
 _peak_cache = {}

@@ -39,9 +39,6 @@ description: "Звуковой дизайн для монтажа: расста�
 ```bash
 SD=.claude/skills/sound-design/scripts
 
-# 0. один раз в свежем окружении — дозаписать синтезированные звуки (swipe, tick, sub-drop, blip, reverse-whoosh)
-python3 $SD/gen_sfx.py
-
 # 1. авторасстановка по стыкам и событиям (из aroll-motion-splice)
 python3 $SD/auto_cues.py edit/spliced.seams.json -o edit/cues.json --bgm motion_only --bgm-file ../assets/bgm/track.mp3
 
@@ -70,7 +67,7 @@ python3 $SD/sfx_mix.py edit/cues.json -o edit/final.mp4
 ## Библиотека звуков (порядок поиска)
 
 1. `assets/sfx-user/` — свои звуки Вики (имя файла = имя эффекта, перекрывают встроенные).
-2. `assets/sfx-extra/` — синтезированные `gen_sfx.py`: swipe, tick, sub-drop, blip, reverse-whoosh.
+2. `assets/sfx-extra/` — синтезированные (лежат в репо, пересоздать: `gen_sfx.py`): swipe, tick, sub-drop, blip, reverse-whoosh.
 3. `agent/skills/media-use/audio/assets/sfx/` — 19 встроенных: whoosh, whoosh-short, whoosh-cinematic,
    pop, click, click-soft, key-press, typing, ping, chime, notification, sparkle, error, riser,
    glitch-1/2/3, impact-bass-1/2.

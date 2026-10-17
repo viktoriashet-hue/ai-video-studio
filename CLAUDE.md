@@ -66,7 +66,7 @@
 1. `python3 .claude/skills/sound-design/scripts/auto_cues.py edit/spliced.seams.json -o edit/cues.json --bgm motion_only` — whoosh на стыках, pop/typing/tick на событиях моушена, riser перед первым моушеном.
 2. `python3 .claude/skills/sound-design/scripts/sfx_mix.py edit/cues.json -o edit/final.mp4` — эффекты шире голоса, подложка с дакингом, −14 LUFS линейно (динамика голоса не трогается).
 3. Проверка: ebur128 (≈ −14 LUFS, пик ≤ −1 dBFS) + спектрограмма side-канала — вжухи ровно на стыках.
-4. В свежем окружении один раз: `python3 .claude/skills/sound-design/scripts/gen_sfx.py` (досинтезирует swipe/tick/sub-drop/blip/reverse-whoosh). Свои звуки Вики — в `.claude/skills/sound-design/assets/sfx-user/`.
+4. Свои звуки Вики — в `.claude/skills/sound-design/assets/sfx-user/` (перекрывают встроенные по имени).
 
 ---
 
