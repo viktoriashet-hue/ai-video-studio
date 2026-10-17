@@ -1,0 +1,8 @@
+[
+  {"t": 0.0, "type": "appear", "note": "документ Anthropic"},
+  {"t": 1.4, "type": "select", "note": "подсветка фразы"},
+  {"t": 4.7, "type": "appear", "note": "офис-иллюстрация"},
+  {"t": 8.0, "type": "message", "note": "почтовый клиент"},
+  {"t": 10.2, "type": "click", "note": "открылось письмо 1"},
+  {"t": 14.4, "type": "alert", "note": "у робота «!»"}
+]

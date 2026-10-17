@@ -1,0 +1,163 @@
+{
+  "video": "spliced.mp4",
+  "duration": 20.066667,
+  "cues": [
+    {
+      "t": 3.3333333333333335,
+      "sfx": "whoosh-short",
+      "gain_db": -9,
+      "align": "peak",
+      "pan": "wide",
+      "why": "seam aroll→motion (slide_up)"
+    },
+    {
+      "t": 3.3333333333333335,
+      "sfx": "riser",
+      "gain_db": -15,
+      "align": "end",
+      "pan": "wide",
+      "dur": 1.6,
+      "why": "opener: riser lands on first motion"
+    },
+    {
+      "t": 4.233,
+      "sfx": "pop",
+      "gain_db": -17.0,
+      "align": "start",
+      "pan": "center",
+      "ui": true,
+      "why": "appear"
+    },
+    {
+      "t": 5.333,
+      "sfx": "tick",
+      "gain_db": -15.0,
+      "align": "start",
+      "pan": "center",
+      "ui": true,
+      "why": "counter tick"
+    },
+    {
+      "t": 5.552,
+      "sfx": "tick",
+      "gain_db": -15.0,
+      "align": "start",
+      "pan": "center",
+      "ui": true,
+      "why": "counter tick"
+    },
+    {
+      "t": 5.749,
+      "sfx": "tick",
+      "gain_db": -15.0,
+      "align": "start",
+      "pan": "center",
+      "ui": true,
+      "why": "counter tick"
+    },
+    {
+      "t": 5.925,
+      "sfx": "tick",
+      "gain_db": -15.0,
+      "align": "start",
+      "pan": "center",
+      "ui": true,
+      "why": "counter tick"
+    },
+    {
+      "t": 6.075,
+      "sfx": "tick",
+      "gain_db": -15.0,
+      "align": "start",
+      "pan": "center",
+      "ui": true,
+      "why": "counter tick"
+    },
+    {
+      "t": 6.198,
+      "sfx": "tick",
+      "gain_db": -15.0,
+      "align": "start",
+      "pan": "center",
+      "ui": true,
+      "why": "counter tick"
+    },
+    {
+      "t": 6.333,
+      "sfx": "tick",
+      "gain_db": -12.0,
+      "align": "start",
+      "pan": "center",
+      "ui": true,
+      "why": "counter tick"
+    },
+    {
+      "t": 7.0,
+      "sfx": "glitch-3",
+      "gain_db": -12,
+      "align": "start",
+      "pan": "wide",
+      "dur": 0.6,
+      "why": "seam motion→motion (glitch)"
+    },
+    {
+      "t": 8.0,
+      "sfx": "typing",
+      "gain_db": -19.0,
+      "align": "start",
+      "dur": 1.2,
+      "pan": "center",
+      "why": "typing"
+    },
+    {
+      "t": 10.5,
+      "sfx": "swipe",
+      "gain_db": -16,
+      "align": "peak",
+      "pan": "wide",
+      "why": "seam motion→aroll (blur)"
+    },
+    {
+      "t": 13.0,
+      "sfx": "whoosh-short",
+      "gain_db": -9,
+      "align": "peak",
+      "pan": "wide",
+      "why": "seam aroll→motion (flash)"
+    },
+    {
+      "t": 13.0,
+      "sfx": "impact-bass-1",
+      "gain_db": -17,
+      "align": "start",
+      "pan": "wide",
+      "dur": 1.0,
+      "why": "seam aroll→motion (flash)"
+    },
+    {
+      "t": 16.0,
+      "sfx": "swipe",
+      "gain_db": -16,
+      "align": "peak",
+      "pan": "wide",
+      "why": "seam motion→aroll (zoom)"
+    }
+  ],
+  "bgm": {
+    "file": "../assets/bgm/track.mp3",
+    "gain_db": -24,
+    "duck": true,
+    "spans": [
+      [
+        3.3333333333333335,
+        10.5
+      ],
+      [
+        13.0,
+        16.0
+      ]
+    ],
+    "fade": 0.35,
+    "note": "file=null → подставь трек (media-use resolve --type bgm) или оставь без музыки"
+  }
+}
