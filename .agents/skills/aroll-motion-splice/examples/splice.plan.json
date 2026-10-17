@@ -1,0 +1,21 @@
+{
+  "aroll": "final_cut.mp4",
+  "words": "transcripts/final_cut.json",
+  "fps": 30,
+  "size": [1080, 1920],
+  "out": "spliced.mp4",
+  "auto_punch": true,
+  "punch_scale": 1.12,
+  "punch_focus_y": 0.38,
+  "captions": "captions.ass",
+  "segments": [
+    {"start": 3.33, "end": 20.9, "src": "../motion/block1.mp4", "enter": "slide_up", "exit": "cut",
+     "events": "../motion/block1.events.json"},
+    {"start": 22.7, "end": 28.1, "src": "../motion/block2.mp4", "enter": "cut", "exit": "cut",
+     "events_inline": [{"t": 1.2, "type": "typing", "dur": 2.5}]},
+    {"start": 31.9, "end": 46.0, "src": "../motion/block3.mp4", "enter": "blur", "exit": "cut",
+     "events_inline": [{"t": 0.6, "type": "appear"}, {"t": 2.0, "type": "appear"},
+                       {"t": 9.5, "type": "counter", "dur": 1.6, "steps": 12}, {"t": 11.2, "type": "reveal"}]},
+    {"start": 49.5, "end": 55.3, "src": "../motion/block4.mp4", "enter": "glitch", "exit": "flash"}
+  ]
+}
